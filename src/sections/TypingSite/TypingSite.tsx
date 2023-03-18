@@ -1,9 +1,7 @@
 import {
   Button,
-  InputBase,
   Stack,
   TextField,
-  Typography,
 } from "@mui/material";
 import {
   FormEvent,
@@ -12,7 +10,7 @@ import {
 } from "react";
 import { urlRegex } from "utils/controller";
 
-import { TypingSiteContainer } from "./TypingSize.style";
+import { TypingSiteContainer } from "./TypingSite.style";
 const TypingSite = () => {
   //state
   const [isValidSite, setIsValidSite] =

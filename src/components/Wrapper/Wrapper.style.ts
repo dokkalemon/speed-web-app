@@ -16,7 +16,6 @@ export const WrapperContainer = styled("div")(
     [`@media (max-width: ${theme?.breakpoints.values.xl}px)`]:
       {
         width: "100%",
-        backgroundColor: "red",
       },
   })
 );
