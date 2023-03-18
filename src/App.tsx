@@ -16,7 +16,7 @@ function App() {
           }}
         >
           Inserisci un URL per testare il tempo di
-          caricamento della pagina
+          caricamento della pagina.
         </Typography>
         <TypingSite />
       </Wrapper>

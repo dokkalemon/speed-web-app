@@ -14,5 +14,8 @@ export const TypingSiteContainer = styled("form")(
     [theme.breakpoints.down("md")]: {
       width: "90%",
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   })
 );
