@@ -1,10 +1,13 @@
-import { Header, Loading } from "components";
+import { Header, Wrapper } from "components";
+import { TypingSite } from "sections";
 
 function App() {
   return (
     <div className="App">
-      <Header></Header>
-      <Loading />
+      <Header />
+      <Wrapper>
+        <TypingSite />
+      </Wrapper>
     </div>
   );
 }

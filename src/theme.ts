@@ -6,6 +6,7 @@ import {
 const theme = responsiveFontSizes(
   createTheme({
     palette: {
+      mode: "dark",
       primary: {
         light: "#EF3E44",
         main: "#E01E23",
