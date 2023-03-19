@@ -1,4 +1,4 @@
-import { Header, Loading, Modal, Wrapper } from "components";
+import { Header, Modal, Wrapper } from "components";
 import { FormEvent, useState } from "react";
 import { Results, TypingSite } from "sections";
 import { addHttps } from "utils/controller";

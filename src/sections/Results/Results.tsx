@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import { useState } from "react";
 import { Panel, ResultsContainer, Tab, Tabs } from "./Result.style";
 import { reduceText } from "utils/string";
 import { useContext } from "react";
