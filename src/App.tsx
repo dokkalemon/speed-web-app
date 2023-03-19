@@ -18,17 +18,10 @@ function App() {
         "site"
       ) as HTMLInputElement;
 
-    const checkSite = sites.find(
-      (el) => el === site.value
-    ); //TODO: edit el with real parameter
-
-    if (checkSite)
-      return alert("sito già presente"); //TODO: Create custom message element
-
-    /* const response = await fetch(
-      "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://www.hotelbianchi.com"
-    ); */
-    setSites([...sites, site.value]);
+    const response = await fetch(
+      "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=www.hotelbianchi.com"
+    );
+    console.log(response);
   };
 
   return (
