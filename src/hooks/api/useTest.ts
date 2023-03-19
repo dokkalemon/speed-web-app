@@ -3,11 +3,11 @@ const useTest = ({
   startLoading,
 }: {
   stopLoading: VoidFunction;
-  startLoading: VoidFunction;
+  startLoading: (site: number) => void;
 }) => {
-  const getInsights = async (url: string) => {
+  const getInsights = async (url: string, site: number) => {
     try {
-      startLoading();
+      startLoading(site);
       const response = await fetch(
         `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`
       );

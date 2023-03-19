@@ -12,13 +12,7 @@ const scaleAnimation = keyframes`
 `;
 
 export const LoadingContainer = styled("div")({
-  height: "100vh",
   width: "100%",
-  backgroundColor: "#00000030",
-  backdropFilter: "blur(10px)",
-  position: "fixed",
-  top: 0,
-  left: 0,
   display: "flex",
   flexDirection: "column",
 
@@ -29,8 +23,8 @@ export const LoadingContainer = styled("div")({
 
 export const LogoContainer = styled("div")({
   position: "relative",
-  height: "150px",
-  width: "150px",
+  height: "100px",
+  width: "100px",
   display: "flex",
   animation: `${scaleAnimation} 1s linear infinite`,
   alignItems: "center",

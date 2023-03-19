@@ -1,4 +1,5 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useLoading } from "hooks";
 import { KeyboardEvent, useState } from "react";
 import { urlRegex } from "utils/controller";
 
@@ -6,7 +7,7 @@ import { TypingSiteContainer } from "./TypingSite.style";
 import { ITypingSiteProps } from "./TypingSite.types";
 
 const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
-  //context
+  const { loading } = useLoading();
 
   //state
   const [isValidSite, setIsValidSite] = useState<boolean>(false);
@@ -35,6 +36,7 @@ const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
           <Stack sx={{ width: "100%" }} gap="5px">
             <TextField
               fullWidth
+              disabled={loading !== 0}
               name="site"
               onKeyUp={handleKeyUp}
               label="Inserisci l'url del sito che vuoi analizzare"
@@ -47,7 +49,7 @@ const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
             sx={{ height: "55px" }}
             size="large"
             type="submit"
-            disabled={!isValidSite}
+            disabled={!isValidSite || loading > 0}
           >
             START
           </Button>

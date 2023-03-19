@@ -7,10 +7,10 @@ import { SearchSiteContext } from "contexts/SearchContext";
 import { useLoading, useTest } from "hooks";
 function App() {
   //hooks
-  const { loading, startLoading, stopLoading } = useLoading();
+  const { startLoading, stopLoading } = useLoading();
   const { getInsights } = useTest({ startLoading, stopLoading });
   //context
-  const { domains, addDomain } = useContext(SearchSiteContext);
+  const { domains, addDomain, setActiveSite } = useContext(SearchSiteContext);
 
   //state
   const [modal, setModal] = useState<number>(0);
@@ -25,13 +25,13 @@ function App() {
     if (testedUrl) return setModal(testedUrl);
 
     addDomain(validUrl);
-    /* const response = await getInsights(validUrl);
-    console.log(response); */
+    setActiveSite(domains.length);
+    const response = await getInsights(validUrl, domains.length + 1);
+    console.log(response);
   };
 
   return (
     <div className="App">
-      {loading ? <Loading /> : null}
       <Header />
       <Wrapper>
         <TypingSite handleSubmit={handleSubmit} />

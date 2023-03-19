@@ -45,8 +45,8 @@ export const Tab = styled("div")(({ active }: { active: boolean }) => ({
 }));
 
 export const Panel = styled("div")({
-  height: "100px",
   width: "80%",
   borderRadius: "10px",
+  padding: "20px",
   backgroundColor: "#413939",
 });
