@@ -55,7 +55,7 @@ const TypingSite = ({
               name="site"
               onKeyUp={handleKeyUp}
               label="Inserisci l'url del sito che vuoi analizzare"
-              placeholder="https://mysite.com o www.mysite.com"
+              placeholder="https://mysite.com o http://mysite.com"
             />
           </Stack>
           <Button

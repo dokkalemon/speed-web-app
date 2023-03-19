@@ -4,7 +4,7 @@ import { TypingSite } from "sections";
 
 function App() {
   //function
-  const handleSubmit = (
+  const handleSubmit = async (
     e: FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -13,7 +13,10 @@ function App() {
         "site"
       ) as HTMLInputElement;
 
-    console.log(site.value);
+    const response = await fetch(
+      "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=www.hotelbianchi.com"
+    );
+    console.log(response);
   };
 
   return (
