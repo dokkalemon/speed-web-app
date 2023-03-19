@@ -1,24 +1,26 @@
-import { Typography } from "@mui/material";
 import { Header, Wrapper } from "components";
+import { FormEvent } from "react";
 import { TypingSite } from "sections";
 
 function App() {
+  //function
+  const handleSubmit = (
+    e: FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    const site =
+      e.currentTarget.elements.namedItem(
+        "site"
+      ) as HTMLInputElement;
+
+    console.log(site.value);
+  };
+
   return (
     <div className="App">
       <Header />
       <Wrapper>
-        <Typography
-          variant="h4"
-          color="grey.100"
-          sx={{
-            textAlign: "center",
-            marginTop: "60px",
-          }}
-        >
-          Inserisci un URL per testare il tempo di
-          caricamento della pagina.
-        </Typography>
-        <TypingSite />
+        <TypingSite handleSubmit={handleSubmit} />
       </Wrapper>
     </div>
   );
