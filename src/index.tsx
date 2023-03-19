@@ -5,14 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
+import { SearchSiteProvider } from "contexts/SearchContext";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <SearchSiteProvider>
+        <App />
+      </SearchSiteProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

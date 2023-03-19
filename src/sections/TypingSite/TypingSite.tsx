@@ -1,29 +1,19 @@
-import {
-  Button,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { KeyboardEvent, useState } from "react";
 import { urlRegex } from "utils/controller";
 
 import { TypingSiteContainer } from "./TypingSite.style";
 import { ITypingSiteProps } from "./TypingSite.types";
 
-const TypingSite = ({
-  handleSubmit,
-}: ITypingSiteProps) => {
+const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
+  //context
+
   //state
-  const [isValidSite, setIsValidSite] =
-    useState<boolean>(false);
+  const [isValidSite, setIsValidSite] = useState<boolean>(false);
 
   //function
-  const handleKeyUp = (
-    e: KeyboardEvent<HTMLDivElement>
-  ) => {
-    const inputValue = (
-      e.target as HTMLInputElement
-    ).value;
+  const handleKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
+    const inputValue = (e.target as HTMLInputElement).value;
 
     setIsValidSite(urlRegex.test(inputValue));
   };
@@ -38,17 +28,10 @@ const TypingSite = ({
           marginTop: "60px",
         }}
       >
-        Inserisci un URL per testare il tempo di
-        caricamento della pagina.
+        Inserisci un URL per testare il tempo di caricamento della pagina.
       </Typography>
-      <Stack
-        flexDirection="row"
-        gap="10px"
-        justifyContent="center"
-      >
-        <TypingSiteContainer
-          onSubmit={handleSubmit}
-        >
+      <Stack flexDirection="row" gap="10px" justifyContent="center">
+        <TypingSiteContainer onSubmit={handleSubmit}>
           <Stack sx={{ width: "100%" }} gap="5px">
             <TextField
               fullWidth

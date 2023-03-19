@@ -1,11 +1,13 @@
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import { Panel, ResultsContainer, Tab, Tabs } from "./Result.style";
-
 import { reduceText } from "utils/string";
-import { IResultsProps } from "./Result.types";
+import { useContext } from "react";
+import { SearchSiteContext } from "contexts/SearchContext";
 
-const Results = ({ sites, deleteSite }: IResultsProps) => {
+const Results = () => {
+  //context
+  const { domains } = useContext(SearchSiteContext);
   //state
   const [activeTab, setActiveTab] = useState<number>(0);
 
@@ -20,9 +22,9 @@ const Results = ({ sites, deleteSite }: IResultsProps) => {
 
   return (
     <ResultsContainer>
-      {sites.length > 0 ? (
+      {domains.length > 0 ? (
         <>
-          <Tabs>{sites.map((site: string, index: number) => renderTab(site, index))}</Tabs>
+          <Tabs>{domains.map((site: string, index: number) => renderTab(site, index))}</Tabs>
           <Panel></Panel>
         </>
       ) : (
