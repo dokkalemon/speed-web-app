@@ -60,6 +60,7 @@ const TypingSite = ({
           </Stack>
           <Button
             variant="contained"
+            color="secondary"
             sx={{ height: "55px" }}
             size="large"
             type="submit"

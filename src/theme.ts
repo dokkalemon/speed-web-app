@@ -7,12 +7,12 @@ const theme = responsiveFontSizes(
   createTheme({
     palette: {
       mode: "dark",
-      primary: {
+      secondary: {
         light: "#EF3E44",
-        main: "#E01E23",
+        main: "#c12f42",
         dark: "#A7040A",
       },
-      secondary: {
+      primary: {
         light: "#FCC26C",
         main: "#ff9800",
         dark: "#ff3000",

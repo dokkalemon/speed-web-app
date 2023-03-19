@@ -1,10 +1,15 @@
 import { Header, Wrapper } from "components";
-import { FormEvent } from "react";
-import { TypingSite } from "sections";
+import { FormEvent, useState } from "react";
+import { Results, TypingSite } from "sections";
 
 function App() {
+  //state
+  const [sites, setSites] = useState<string[]>(
+    []
+  );
+
   //function
-  const handleSubmit = (
+  const handleSubmit = async (
     e: FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
@@ -13,7 +18,17 @@ function App() {
         "site"
       ) as HTMLInputElement;
 
-    console.log(site.value);
+    const checkSite = sites.find(
+      (el) => el === site.value
+    ); //TODO: edit el with real parameter
+
+    if (checkSite)
+      return alert("sito già presente"); //TODO: Create custom message element
+
+    /* const response = await fetch(
+      "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=http://www.hotelbianchi.com"
+    ); */
+    setSites([...sites, site.value]);
   };
 
   return (
@@ -21,6 +36,7 @@ function App() {
       <Header />
       <Wrapper>
         <TypingSite handleSubmit={handleSubmit} />
+        <Results sites={sites} />
       </Wrapper>
     </div>
   );
