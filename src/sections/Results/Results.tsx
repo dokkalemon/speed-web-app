@@ -7,14 +7,12 @@ import { SearchSiteContext } from "contexts/SearchContext";
 
 const Results = () => {
   //context
-  const { domains } = useContext(SearchSiteContext);
-  //state
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const { domains, activeSite, setActiveSite } = useContext(SearchSiteContext);
 
   //renders
   const renderTab = (site: string, index: number) => {
     return (
-      <Tab active={index === activeTab} key={`tab${index}`} onClick={() => setActiveTab(index)}>
+      <Tab active={index === activeSite} key={`tab${index}`} onClick={() => setActiveSite(index)}>
         <Typography>{reduceText(site)}</Typography>
       </Tab>
     );

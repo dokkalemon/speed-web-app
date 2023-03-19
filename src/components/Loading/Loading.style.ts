@@ -20,6 +20,8 @@ export const LoadingContainer = styled("div")({
   top: 0,
   left: 0,
   display: "flex",
+  flexDirection: "column",
+
   justifyContent: "center",
   alignItems: "center",
   zIndex: 9999,

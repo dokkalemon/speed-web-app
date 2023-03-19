@@ -1,6 +1,13 @@
-const useTest = () => {
+const useTest = ({
+  stopLoading,
+  startLoading,
+}: {
+  stopLoading: VoidFunction;
+  startLoading: VoidFunction;
+}) => {
   const getInsights = async (url: string) => {
     try {
+      startLoading();
       const response = await fetch(
         `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`
       );
@@ -10,7 +17,7 @@ const useTest = () => {
       console.error(errors);
       return errors;
     } finally {
-      console.log("ho finito");
+      stopLoading();
     }
   };
 

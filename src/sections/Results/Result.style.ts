@@ -7,7 +7,7 @@ export const ResultsContainer = styled("div")({
   backgroundColor: "#312929",
   padding: "20px",
   boxShadow: "3px 5px 5px rgba(0, 0, 0, 0.2)",
-  borderRadius: "5px",
+  borderRadius: "15px",
   gap: "10px",
   color: "#fff",
 });
