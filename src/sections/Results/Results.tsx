@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Panel, ResultsContainer, Tab, Tabs } from "./Result.style";
+import { Panel, ResultsContainer, Tab, Tabs } from "./Results.style";
 import { reduceText } from "utils/string";
 import { useContext } from "react";
 import { SearchSiteContext } from "contexts/SearchContext";
@@ -24,7 +24,7 @@ const Results = () => {
         <>
           <Tabs>{domains.map((site: string, index: number) => renderTab(site, index))}</Tabs>
           <Panel>
-            <Result loading={loading === activeSite + 1} />
+            <Result loading={loading === activeSite + 1} activeSite={activeSite} />
           </Panel>
         </>
       ) : (
