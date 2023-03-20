@@ -20,7 +20,7 @@ function App() {
     let site = e.currentTarget.elements.namedItem("site") as HTMLInputElement;
 
     const validUrl = addHttps(site.value);
-    const testedUrl = domains.indexOf(validUrl) + 1;
+    const testedUrl = domains.map((e) => e.domain).indexOf(validUrl) + 1;
 
     if (testedUrl) return setModal(testedUrl);
 

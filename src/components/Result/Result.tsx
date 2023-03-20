@@ -11,7 +11,7 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: number 
         <Loading />
       ) : (
         <>
-          <Typography variant="h5">Report - {domains[activeSite]}</Typography>
+          <Typography variant="h5">Report - {domains[activeSite].domain}</Typography>
         </>
       )}
     </>
