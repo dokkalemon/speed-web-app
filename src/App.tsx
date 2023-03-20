@@ -10,7 +10,7 @@ function App() {
   const { startLoading, stopLoading } = useLoading();
   const { getInsights } = useTest({ startLoading, stopLoading });
   //context
-  const { domains, addDomain, setActiveSite } = useContext(SearchSiteContext);
+  const { domains, addDomain, setActiveSite, updateDomain } = useContext(SearchSiteContext);
 
   //state
   const [modal, setModal] = useState<number>(0);
@@ -26,9 +26,19 @@ function App() {
 
     addDomain(validUrl);
     setActiveSite(domains.length);
-    const response = await getInsights(validUrl, domains.length + 1);
-    console.log(response);
+    const response: any = await getInsights(validUrl, domains.length + 1);
+
+    if (response && response.status === 200) {
+      console.log(response);
+      updateDomain(validUrl, response.data, 200, "");
+    }
+    if (!response || !response.status || response.status !== 200) {
+      console.log(response);
+      updateDomain(validUrl, [], response.status, response.data.error.message);
+    }
   };
+
+  console.log("domains", domains);
 
   return (
     <div className="App">

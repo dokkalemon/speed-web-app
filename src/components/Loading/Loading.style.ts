@@ -26,7 +26,6 @@ export const LogoContainer = styled("div")({
   height: "100px",
   width: "100px",
   display: "flex",
-  animation: `${scaleAnimation} 1s linear infinite`,
   alignItems: "center",
   justifyContent: "center",
 });

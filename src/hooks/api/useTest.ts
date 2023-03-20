@@ -9,10 +9,11 @@ const useTest = ({
     try {
       startLoading(site);
       const response = await fetch(
-        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`
+        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}&locale=it`
       );
+      const status = response.status;
       const data = await response.json();
-      return data;
+      return { data, status };
     } catch (errors) {
       console.error(errors);
       return errors;

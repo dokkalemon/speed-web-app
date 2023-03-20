@@ -6,6 +6,7 @@ import { SearchSiteContext } from "contexts/SearchContext";
 import { useLoading } from "hooks";
 import { Result } from "components";
 import { IDomainProps } from "types/domains";
+import { colorResponse } from "constants/references";
 
 const Results = () => {
   //context
@@ -13,9 +14,12 @@ const Results = () => {
   const { loading } = useLoading();
   //renders
   const renderTab = (site: IDomainProps, index: number) => {
+    console.log(colorResponse[site.results]);
     return (
       <Tab active={index === activeSite} key={`tab${index}`} onClick={() => setActiveSite(index)}>
-        <Typography>{reduceText(site.domain)}</Typography>
+        <Typography sx={{ color: colorResponse[site.status as number] || "#ffffff" }}>
+          {reduceText(site.domain)}
+        </Typography>
       </Tab>
     );
   };
