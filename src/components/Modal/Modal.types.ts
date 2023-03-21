@@ -1,4 +1,9 @@
 export interface IModalProps {
   onClose: VoidFunction;
-  position: number;
+  data: IModalDataProps;
+}
+
+interface IModalDataProps {
+  site: string | null;
+  index: number;
 }

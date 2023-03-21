@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { SearchSiteContext } from "contexts/SearchContext";
 import { Stack, Typography } from "@mui/material";
 import { colorResponse } from "constants/references";
+
 const Result = ({ loading, activeSite }: { loading: boolean; activeSite: number }) => {
   //context
   const { domains } = useContext(SearchSiteContext);
@@ -32,6 +33,10 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: number 
           {domains[activeSite]?.status === 500 ? (
             <Typography sx={{ marginTop: "20px" }}>{domains[activeSite]?.errorMessage}</Typography>
           ) : null}
+
+          <>
+            <div style={{ position: "relative" }}></div>
+          </>
         </>
       )}
     </>
