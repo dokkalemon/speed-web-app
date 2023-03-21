@@ -4,7 +4,7 @@ import { reduceText } from "utils/string";
 import { useContext } from "react";
 import { SearchSiteContext } from "contexts/SearchContext";
 import { useLoading } from "hooks";
-import { Result } from "components";
+import { Result } from "../Result/Result";
 import { IDomainProps } from "types/domains";
 import { colorResponse } from "constants/references";
 
