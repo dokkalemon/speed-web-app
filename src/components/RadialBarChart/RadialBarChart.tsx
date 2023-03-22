@@ -1,4 +1,5 @@
 import { RadialBarChart as Chart, RadialBar } from "recharts";
+
 import { IRadialChartProps } from "./RadialBarChart.types";
 
 const RadialBarChart = ({ data }: IRadialChartProps) => {
@@ -13,7 +14,7 @@ const RadialBarChart = ({ data }: IRadialChartProps) => {
       innerRadius="20%"
       outerRadius="80%"
     >
-      <RadialBar label={false} dataKey="value" />
+      <RadialBar label={false} dataKey="score" />
     </Chart>
   );
 };

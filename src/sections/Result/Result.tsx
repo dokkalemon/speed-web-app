@@ -1,10 +1,12 @@
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
 import { IDomainProps } from "types/domains";
+import { MainSection } from "./components";
 
 const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomainProps }) => {
+  console.log(activeSite);
   return (
     <>
       {loading ? (
@@ -37,9 +39,8 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
             <Typography sx={{ marginTop: "20px" }}>{activeSite?.errorMessage}</Typography>
           ) : null}
 
-          {/* <>
-            <MainSection site={site} />
-          </> */}
+          <MainSection site={activeSite} />
+          <Divider />
         </>
       ) : (
         ""

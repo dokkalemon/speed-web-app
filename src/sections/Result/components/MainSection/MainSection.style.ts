@@ -7,6 +7,7 @@ export const MainSectionContainer = styled("div")({
   justifyContent: "center",
   flexDirection: "column",
   padding: "0px 0px",
+  marginBottom: "30px",
 });
 
 export const LegendContainer = styled("div")({

@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { useLoading, useTest } from "hooks";
 import { DomainsContext } from "contexts/DomainsContext";
 import { IDomainProps } from "types/domains";
+import { getPrimaryCategories, getPerformance } from "utils/domain";
 interface IModelProps {
   site: string | null;
   index: number;
@@ -43,8 +44,14 @@ function App() {
     const response: any = await getInsights(domain);
 
     if (response && response.status === 200) {
-      console.log(response);
-      const newDomain: IDomainProps = { domain, results: response.data, status: 200 };
+      const results: any = {};
+      results.primaryCategories = getPrimaryCategories(response.data);
+      results.performance = getPerformance(response.data);
+      const newDomain: IDomainProps = {
+        domain,
+        results: results,
+        status: 200,
+      };
       setStatistics([...statistics, newDomain]);
     }
     if (!response || !response.status || response.status !== 200) {
@@ -58,9 +65,6 @@ function App() {
       setStatistics([...statistics, newDomain]);
     }
   };
-
-  console.log("domains", statistics);
-  console.log("domains", domains);
 
   return (
     <div className="App">
