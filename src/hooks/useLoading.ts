@@ -1,15 +1,15 @@
 import { create } from "zustand";
 
 interface IUseLoadingProps {
-  loading: number;
-  startLoading: (site: number) => void;
+  loading: boolean;
+  startLoading: VoidFunction;
   stopLoading: VoidFunction;
 }
 
 const useLoading = create<IUseLoadingProps>((set) => ({
-  loading: 0,
-  startLoading: (site: number) => set(() => ({ loading: site })),
-  stopLoading: () => set(() => ({ loading: 0 })),
+  loading: false,
+  startLoading: () => set(() => ({ loading: true })),
+  stopLoading: () => set(() => ({ loading: false })),
 }));
 
 export { useLoading };

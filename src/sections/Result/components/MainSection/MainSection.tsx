@@ -7,7 +7,8 @@ import {
   LegendLabelContainer,
   MainSectionContainer,
 } from "./MainSection.style";
-
+import { useContext } from "react";
+import { SearchSiteContext } from "contexts/SearchContext";
 const data = [
   {
     name: "18-24",
@@ -31,7 +32,10 @@ const data = [
   },
 ];
 
-const MainSection = () => {
+const MainSection = ({ site }: any) => {
+  //context
+  const { domains, activeSite } = useContext(SearchSiteContext);
+
   //renders
   const renderLegendLabel = (el: IRadialChartDataProps) => {
     return (

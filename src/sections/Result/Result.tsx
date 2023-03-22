@@ -1,21 +1,23 @@
+import { Typography } from "@mui/material";
+import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
-import { useContext } from "react";
-import { SearchSiteContext } from "contexts/SearchContext";
-import { Stack, Typography } from "@mui/material";
-import { colorResponse } from "constants/references";
-import { MainSection } from "./components";
+import { colorResponse, responseMessage } from "constants/references";
+import { IDomainProps } from "types/domains";
 
-const Result = ({ loading, activeSite }: { loading: boolean; activeSite: number }) => {
-  //context
-  const { domains } = useContext(SearchSiteContext);
+const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomainProps }) => {
   return (
     <>
       {loading ? (
         <Loading />
-      ) : (
+      ) : activeSite ? (
         <>
-          <Stack flexDirection="row" justifyContent="flex-start" alignItems="flex-end" gap="10px">
-            <Typography variant="h5">Report - {domains[activeSite]?.domain}</Typography>
+          <Stack
+            flexDirection="column"
+            justifyContent="flex-start"
+            alignItems="flex-start"
+            gap="10px"
+          >
+            <Typography variant="h5">Report - {activeSite.domain}</Typography>
             <Stack flexDirection="row" gap="5px" sx={{ marginBottom: "1px" }}>
               <Typography variant="body1" sx={{ fontWeight: "500" }}>
                 Status:
@@ -24,21 +26,23 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: number 
                 variant="body1"
                 sx={{
                   fontWeight: "500",
-                  color: colorResponse[domains[activeSite]?.status as number] || "#ffffff",
+                  color: colorResponse[activeSite?.status as number] || "#ffffff",
                 }}
               >
-                {domains[activeSite]?.status === 200 ? "Success" : "Error"}
+                {responseMessage[activeSite?.status as number] || ""}
               </Typography>
             </Stack>
           </Stack>
-          {domains[activeSite]?.status === 500 ? (
-            <Typography sx={{ marginTop: "20px" }}>{domains[activeSite]?.errorMessage}</Typography>
+          {activeSite?.status === 500 ? (
+            <Typography sx={{ marginTop: "20px" }}>{activeSite?.errorMessage}</Typography>
           ) : null}
 
-          <>
-            <MainSection />
-          </>
+          {/* <>
+            <MainSection site={site} />
+          </> */}
         </>
+      ) : (
+        ""
       )}
     </>
   );

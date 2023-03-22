@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import { SearchSiteProvider } from "contexts/SearchContext";
+import { DomainsProvider } from "contexts/DomainsContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <SearchSiteProvider>
-        <App />
+        <DomainsProvider>
+          <App />
+        </DomainsProvider>
       </SearchSiteProvider>
     </ThemeProvider>
   </React.StrictMode>

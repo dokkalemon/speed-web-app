@@ -1,11 +1,11 @@
 import { Header, Modal, Wrapper } from "components";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Results, TypingSite } from "sections";
 import { addHttps } from "utils/controller";
 import { useContext } from "react";
-import { SearchSiteContext } from "contexts/SearchContext";
 import { useLoading, useTest } from "hooks";
-
+import { DomainsContext } from "contexts/DomainsContext";
+import { IDomainProps } from "types/domains";
 interface IModelProps {
   site: string | null;
   index: number;
@@ -16,7 +16,7 @@ function App() {
   const { startLoading, stopLoading } = useLoading();
   const { getInsights } = useTest({ startLoading, stopLoading });
   //context
-  const { domains, addDomain, setActiveSite, updateDomain } = useContext(SearchSiteContext);
+  const { domains, setDomains, statistics, setStatistics } = useContext(DomainsContext);
 
   //state
   const [modal, setModal] = useState<IModelProps>({ site: null, index: 0 });
@@ -25,24 +25,41 @@ function App() {
     e.preventDefault();
     let site = e.currentTarget.elements.namedItem("site") as HTMLInputElement;
     const validUrl = addHttps(site.value);
-    const testedUrl = domains.map((e) => e.domain).indexOf(validUrl) + 1;
+    const testedUrl = domains.map((e) => e).indexOf(validUrl) + 1;
     if (testedUrl) return setModal({ site: validUrl, index: testedUrl });
-    addDomain(validUrl);
-    setActiveSite(domains.length);
-    /*     const response: any = await getInsights(validUrl, domains.length + 1); */
+    setDomains([...domains, validUrl]);
+  };
 
-    updateDomain(validUrl, [], 200, "");
+  useEffect(() => {
+    if (domains.length === 0) return;
 
-    /* if (response && response.status === 200) {
+    const domain = domains[domains.length - 1];
+    fetchDomain(domain);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [domains.length]);
+
+  //functions
+  const fetchDomain = async (domain: string) => {
+    const response: any = await getInsights(domain);
+
+    if (response && response.status === 200) {
       console.log(response);
-      updateDomain(validUrl, response.data, 200, "");
+      const newDomain: IDomainProps = { domain, results: response.data, status: 200 };
+      setStatistics([...statistics, newDomain]);
     }
     if (!response || !response.status || response.status !== 200) {
       console.log(response);
-      updateDomain(validUrl, [], response.status, response.data.error.message);
-    } */
+      const newDomain: IDomainProps = {
+        domain,
+        results: null,
+        status: 500,
+        errorMessage: response.data.error.message,
+      };
+      setStatistics([...statistics, newDomain]);
+    }
   };
 
+  console.log("domains", statistics);
   console.log("domains", domains);
 
   return (
