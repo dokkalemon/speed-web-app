@@ -1,3 +1,5 @@
-import { IRadialChartDataProps } from "components/RadialBarChart/RadialBarChart.types";
+import { IDomainProps } from "types/domains";
 
-export interface IMainSectionProps {}
+export interface IMainSectionProps {
+  site: IDomainProps;
+}

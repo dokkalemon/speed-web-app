@@ -1,5 +1,7 @@
+import { IPrimaryCategoryProps } from "types/domains";
+
 export interface IRadialChartProps {
-  data: IRadialChartDataProps[];
+  data: IPrimaryCategoryProps[];
 }
 
 export interface IRadialChartDataProps {

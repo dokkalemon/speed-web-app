@@ -5,8 +5,9 @@ import { addHttps } from "utils/controller";
 import { useContext } from "react";
 import { useLoading, useTest } from "hooks";
 import { DomainsContext } from "contexts/DomainsContext";
-import { IDomainProps } from "types/domains";
+import { IDomainProps, IResultsProps } from "types/domains";
 import { getPrimaryCategories, getPerformance } from "utils/domain";
+import "react-circular-progressbar/dist/styles.css";
 interface IModelProps {
   site: string | null;
   index: number;
@@ -44,7 +45,7 @@ function App() {
     const response: any = await getInsights(domain);
 
     if (response && response.status === 200) {
-      const results: any = {};
+      const results: IResultsProps = { primaryCategories: null, performance: null };
       results.primaryCategories = getPrimaryCategories(response.data);
       results.performance = getPerformance(response.data);
       const newDomain: IDomainProps = {

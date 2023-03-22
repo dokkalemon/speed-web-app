@@ -1,5 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 import { RadialBarChart } from "components";
+import { IPrimaryCategoryProps } from "types/domains";
 
 import {
   LegendColor,
@@ -7,10 +8,12 @@ import {
   LegendLabelContainer,
   MainSectionContainer,
 } from "./MainSection.style";
+import { IMainSectionProps } from "./MainSection.types";
 
-const MainSection = ({ site }: any) => {
+const MainSection = ({ site }: IMainSectionProps) => {
   //renders
-  const renderLegendLabel = (el: any) => {
+  const renderLegendLabel = (el: IPrimaryCategoryProps) => {
+    console.log(el);
     return (
       <LegendLabelContainer>
         <LegendColor color={el.fill} />
@@ -22,18 +25,18 @@ const MainSection = ({ site }: any) => {
             variant="caption"
             sx={{ fontWeight: "700", color: el.fill, lineHeight: "10px" }}
           >
-            {el.score}
+            {el.score.toString()}
           </Typography>
         </Stack>
       </LegendLabelContainer>
     );
   };
-
+  console.log();
   return (
     <MainSectionContainer>
-      <RadialBarChart data={site.results.primaryCategories} />
+      <RadialBarChart data={site.results?.primaryCategories as IPrimaryCategoryProps[]} />
       <LegendContainer>
-        {site.results.primaryCategories.map((el: any, number: number) => renderLegendLabel(el))}
+        {site.results?.primaryCategories?.map((el) => renderLegendLabel(el))}
       </LegendContainer>
     </MainSectionContainer>
   );

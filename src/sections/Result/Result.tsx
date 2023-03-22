@@ -2,8 +2,8 @@ import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
-import { IDomainProps } from "types/domains";
-import { MainSection } from "./components";
+import { IDomainProps, IPrimaryCategoryProps } from "types/domains";
+import { Category, MainSection } from "./components";
 
 const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomainProps }) => {
   console.log(activeSite);
@@ -40,7 +40,12 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
           ) : null}
 
           <MainSection site={activeSite} />
-          <Divider />
+          <Stack alignItems="center">
+            <Divider />
+            {activeSite.results?.primaryCategories?.map((el: IPrimaryCategoryProps) => (
+              <Category category={el} />
+            ))}
+          </Stack>
         </>
       ) : (
         ""
