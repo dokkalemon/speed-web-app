@@ -1,19 +1,39 @@
 import { Typography } from "@mui/material";
-import { Panel, ResultsContainer, Tab, Tabs } from "./Result.style";
+import { Panel, ResultsContainer, Tab, Tabs } from "./Results.style";
 import { reduceText } from "utils/string";
-import { useContext } from "react";
-import { SearchSiteContext } from "contexts/SearchContext";
-import { useLoading } from "hooks";
-import { Result } from "components";
+import { useContext, useEffect, useState } from "react";
+import { Result } from "../Result/Result";
+import { DomainsContext } from "contexts/DomainsContext";
+import { IDomainProps } from "types/domains";
 
 const Results = () => {
   //context
-  const { domains, activeSite, setActiveSite } = useContext(SearchSiteContext);
-  const { loading } = useLoading();
+  const { domains, statistics } = useContext(DomainsContext);
+
+  //state
+  const [activeSite, setActiveSite] = useState<string>("");
+  const [loadingState, setLoadingState] = useState<boolean>(false);
+  const [siteStatistics, setSiteStatistics] = useState<IDomainProps | null>(null);
+  useEffect(() => {
+    const site = statistics.find((el) => el.domain === activeSite);
+
+    site ? setLoadingState(!Boolean(site.status)) : setLoadingState(true);
+  }, [activeSite, statistics]);
+
+  useEffect(() => {
+    setActiveSite(domains[domains.length - 1]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [domains.length]);
+
+  useEffect(() => {
+    const statisticsFound = statistics.find((el) => el.domain === activeSite);
+    setSiteStatistics(statisticsFound as IDomainProps);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSite, loadingState]);
   //renders
   const renderTab = (site: string, index: number) => {
     return (
-      <Tab active={index === activeSite} key={`tab${index}`} onClick={() => setActiveSite(index)}>
+      <Tab active={activeSite === site} key={`tab${index}`} onClick={() => setActiveSite(site)}>
         <Typography>{reduceText(site)}</Typography>
       </Tab>
     );
@@ -24,7 +44,7 @@ const Results = () => {
         <>
           <Tabs>{domains.map((site: string, index: number) => renderTab(site, index))}</Tabs>
           <Panel>
-            <Result loading={loading === activeSite + 1} />
+            <Result loading={loadingState} activeSite={siteStatistics as IDomainProps} />
           </Panel>
         </>
       ) : (

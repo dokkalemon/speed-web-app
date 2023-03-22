@@ -36,7 +36,7 @@ const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
           <Stack sx={{ width: "100%" }} gap="5px">
             <TextField
               fullWidth
-              disabled={loading !== 0}
+              disabled={loading}
               name="site"
               onKeyUp={handleKeyUp}
               label="Inserisci l'url del sito che vuoi analizzare"
@@ -49,7 +49,7 @@ const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
             sx={{ height: "55px" }}
             size="large"
             type="submit"
-            disabled={!isValidSite || loading > 0}
+            disabled={!isValidSite || loading}
           >
             START
           </Button>

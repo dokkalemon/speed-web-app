@@ -3,16 +3,17 @@ const useTest = ({
   startLoading,
 }: {
   stopLoading: VoidFunction;
-  startLoading: (site: number) => void;
+  startLoading: VoidFunction;
 }) => {
-  const getInsights = async (url: string, site: number) => {
+  const getInsights = async (url: string) => {
     try {
-      startLoading(site);
+      startLoading();
       const response = await fetch(
-        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}`
+        `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}&locale=it&category=performance&category=accessibility&category=best-practices&category=pwa&category=seo`
       );
+      const status = response.status;
       const data = await response.json();
-      return data;
+      return { data, status };
     } catch (errors) {
       console.error(errors);
       return errors;

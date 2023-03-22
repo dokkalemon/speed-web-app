@@ -1,5 +1,5 @@
 export const urlRegex = new RegExp(
-  "^(https?:\\/\\/)?([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]{2,999}(\\/[a-zA-Z0-9\\-._?,'+&%$#=~]+)*(\\.([a-zA-Z]{2,6})){1}$"
+  "^(https?:\\/\\/)?([a-zA-Z0-9\\-]+\\.)+[a-zA-Z0-9]{2,999}(\\/[a-zA-Z0-9\\-._?,'+&%$#=~]+)*(\\.([a-zA-Z]{2,6})){1}$"
 );
 
 export const addHttps = (site: string) => {

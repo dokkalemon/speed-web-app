@@ -1,16 +1,5 @@
 import { keyframes, styled } from "@mui/material";
 
-const scaleAnimation = keyframes`
-0% {
-    scale: 1
-}
-50% {
-    scale: 1.2
-}
-
-100% {scale 1}
-`;
-
 export const LoadingContainer = styled("div")({
   width: "100%",
   display: "flex",
@@ -26,7 +15,6 @@ export const LogoContainer = styled("div")({
   height: "100px",
   width: "100px",
   display: "flex",
-  animation: `${scaleAnimation} 1s linear infinite`,
   alignItems: "center",
   justifyContent: "center",
 });
