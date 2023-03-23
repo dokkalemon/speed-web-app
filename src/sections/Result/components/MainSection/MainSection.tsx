@@ -31,7 +31,7 @@ const MainSection = ({ site }: IMainSectionProps) => {
       </LegendLabelContainer>
     );
   };
-  console.log();
+
   return (
     <MainSectionContainer>
       <RadialBarChart data={site.results?.primaryCategories as IPrimaryCategoryProps[]} />

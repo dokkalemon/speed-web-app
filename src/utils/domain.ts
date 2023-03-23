@@ -32,3 +32,9 @@ export const getPerformance = (result: any) => {
   const performanceAudit: IPerformanceResultProps[] = performanceValue.map((el) => audits[el]);
   return performanceAudit;
 };
+
+export const getWarningsAndSettings = (result: any) => {
+  const runWarnings = result.lighthouseResult.runWarnings;
+  const environment = result.lighthouseResult.environment;
+  return { runWarnings: runWarnings[0], environment: environment.networkUserAgent };
+};

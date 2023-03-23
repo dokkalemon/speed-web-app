@@ -3,6 +3,7 @@ import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
 import { IDomainProps, IPrimaryCategoryProps } from "types/domains";
+
 import { Category, MainSection } from "./components";
 
 const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomainProps }) => {
@@ -34,6 +35,12 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
                 {responseMessage[activeSite?.status as number] || ""}
               </Typography>
             </Stack>
+            <Typography variant="caption" sx={{ fontWeight: "500" }}>
+              {activeSite.results?.warningsAndSettings?.runWarnings}
+            </Typography>
+            <Typography variant="caption" sx={{ fontWeight: "500" }}>
+              Richiesta effettuata con: {activeSite.results?.warningsAndSettings?.environment}
+            </Typography>
           </Stack>
           {activeSite?.status === 500 ? (
             <Typography sx={{ marginTop: "20px" }}>{activeSite?.errorMessage}</Typography>

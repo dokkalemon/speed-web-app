@@ -8,6 +8,7 @@ export interface IDomainProps {
 export interface IResultsProps {
   primaryCategories: IPrimaryCategoryProps[] | null;
   performance: IPerformanceResultProps[] | null;
+  warningsAndSettings: IWarningAndSettingsProps | null;
 }
 
 export interface IPrimaryCategoryProps {
@@ -27,4 +28,9 @@ export interface IPerformanceResultProps {
   score: number;
   scoreDisplayMode: string;
   title: string;
+}
+
+export interface IWarningAndSettingsProps {
+  runWarnings: string;
+  environment: string;
 }
