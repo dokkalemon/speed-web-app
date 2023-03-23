@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { RadialBarChart } from "components";
 import { IPrimaryCategoryProps } from "types/domains";
 
@@ -11,19 +11,23 @@ import {
 import { IMainSectionProps } from "./MainSection.types";
 
 const MainSection = ({ site }: IMainSectionProps) => {
+  //hooks
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
   //renders
   const renderLegendLabel = (el: IPrimaryCategoryProps) => {
     console.log(el);
     return (
       <LegendLabelContainer>
         <LegendColor color={el.fill} />
-        <Stack gap="5px">
+        <Stack gap="5px" alignItems={isMobile ? "center" : "auto"}>
           <Typography variant="body1" sx={{ lineHeight: "15px" }}>
             {el.label}
           </Typography>
           <Typography
-            variant="caption"
-            sx={{ fontWeight: "700", color: el.fill, lineHeight: "10px" }}
+            variant={isMobile ? "subtitle1" : "caption"}
+            sx={{ fontWeight: "700", color: el.fill, lineHeight: isMobile ? "20px" : "10px" }}
           >
             {el.score.toString()}
           </Typography>

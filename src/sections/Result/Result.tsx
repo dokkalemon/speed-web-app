@@ -35,9 +35,11 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
                 {responseMessage[activeSite?.status as number] || ""}
               </Typography>
             </Stack>
-            <Typography variant="caption" sx={{ fontWeight: "500" }}>
-              {activeSite.results?.warningsAndSettings?.runWarnings}
-            </Typography>
+            {activeSite.results?.warningsAndSettings?.runWarnings ? (
+              <Typography variant="caption" sx={{ fontWeight: "500" }}>
+                {activeSite.results?.warningsAndSettings?.runWarnings}
+              </Typography>
+            ) : null}
             <Typography variant="caption" sx={{ fontWeight: "500" }}>
               Richiesta effettuata con: {activeSite.results?.warningsAndSettings?.environment}
             </Typography>

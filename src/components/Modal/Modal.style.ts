@@ -15,7 +15,7 @@ export const ModalContainer = styled("div")({
   zIndex: 9999,
 });
 
-export const ModalWindow = styled("div")(() => ({
+export const ModalWindow = styled("div")(({ theme }) => ({
   minWidth: "450px",
   backgroundColor: "#313131",
   padding: "20px",
@@ -28,4 +28,7 @@ export const ModalWindow = styled("div")(() => ({
   justifyContent: "flex-start",
   borderRadius: "15px",
   boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.4)",
+  [theme.breakpoints.down("md")]: {
+    minWidth: "300px",
+  },
 }));
