@@ -22,7 +22,6 @@ export const getPrimaryCategories = (result: any) => {
 export const getPerformance = (result: any) => {
   const audits = result.lighthouseResult.audits;
   const performanceAudit = Object.values(audits).filter((el: any) => el.score !== null);
-  console.log("performanceAudit", performanceAudit);
   return performanceAudit.slice(0, 15) as IPerformanceResultProps[];
 };
 

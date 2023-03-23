@@ -2,7 +2,7 @@ import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
-import { IDomainProps, IPerformanceResultProps, IPrimaryCategoryProps } from "types/domains";
+import { IDomainProps, IPerformanceResultProps } from "types/domains";
 
 import { Category, MainSection } from "./components";
 
