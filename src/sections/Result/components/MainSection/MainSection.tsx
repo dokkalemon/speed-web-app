@@ -17,7 +17,6 @@ const MainSection = ({ site }: IMainSectionProps) => {
 
   //renders
   const renderLegendLabel = (el: IPrimaryCategoryProps) => {
-    console.log(el);
     return (
       <LegendLabelContainer>
         <LegendColor color={el.fill} />
