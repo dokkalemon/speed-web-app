@@ -26,10 +26,10 @@ const MainSection = ({ site }: IMainSectionProps) => {
             {el.label}
           </Typography>
           <Typography
-            variant={isMobile ? "subtitle1" : "caption"}
-            sx={{ fontWeight: "700", color: el.fill, lineHeight: isMobile ? "20px" : "10px" }}
+            variant={isMobile ? "subtitle1" : "body1"}
+            sx={{ fontWeight: "700", color: el.fill, lineHeight: isMobile ? "20px" : "15px" }}
           >
-            {el.score.toString()}
+            {el.score.toString()}%
           </Typography>
         </Stack>
       </LegendLabelContainer>

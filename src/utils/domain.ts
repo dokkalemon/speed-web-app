@@ -19,18 +19,11 @@ export const getPrimaryCategories = (result: any) => {
   return assingColor(primaryCategories);
 };
 
-const performanceValue = [
-  "first-contentful-paint",
-  "largest-contentful-paint",
-  "total-blocking-time",
-  "speed-index",
-  "cumulative-layout-shift",
-];
-
 export const getPerformance = (result: any) => {
   const audits = result.lighthouseResult.audits;
-  const performanceAudit: IPerformanceResultProps[] = performanceValue.map((el) => audits[el]);
-  return performanceAudit;
+  const performanceAudit = Object.values(audits).filter((el: any) => el.score !== null);
+  console.log("performanceAudit", performanceAudit);
+  return performanceAudit.slice(0, 15) as IPerformanceResultProps[];
 };
 
 export const getWarningsAndSettings = (result: any) => {

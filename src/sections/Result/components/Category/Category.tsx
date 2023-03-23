@@ -1,29 +1,36 @@
-import { Typography } from "@mui/material";
-import { CategoryContainer } from "./Category.style";
+import { AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { CategoryContainer, DetailContainer, Title } from "./Category.style";
 import { ICategoryProps } from "./Category.types";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { Icon } from "@iconify/react";
 
 const Category = ({ category }: ICategoryProps) => {
   return (
     <CategoryContainer>
-      <Typography variant="h4">{category.label}</Typography>
-      <div style={{ height: "150px", width: "150px", position: "relative" }}>
-        <CircularProgressbar
-          value={category.score}
-          text={category.score.toString()}
-          styles={buildStyles({
-            rotation: 90,
-            textSize: "30px",
-            pathTransitionDuration: 1,
-            pathColor: category.fill,
-            textColor: category.fill,
-            trailColor: "#d6d6d630",
-          })}
-        />
-      </div>
-      <Typography variant="body1" sx={{ textAlign: "center" }}>
-        {category.description}
-      </Typography>
+      <AccordionSummary
+        expandIcon={<Icon icon="ic:round-expand-more" style={{ fontSize: "25px" }} />}
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Title>
+          <Typography variant="body1" sx={{ width: "70%", fontWeight: "600" }}>
+            {category.title}
+          </Typography>
+          {/*    <Typography
+            variant="subtitle2"
+            sx={{ width: "25%", textAlign: "right", paddingRight: "20px" }}
+          >
+            {category.score}
+          </Typography> */}
+        </Title>
+      </AccordionSummary>
+      <AccordionDetails>
+        <DetailContainer>
+          <Typography variant="body1" sx={{ width: "100%" }}>
+            {category.description}
+          </Typography>
+        </DetailContainer>
+      </AccordionDetails>
     </CategoryContainer>
   );
 };

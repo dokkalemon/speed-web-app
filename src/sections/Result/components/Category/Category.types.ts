@@ -1,5 +1,5 @@
-import { IPrimaryCategoryProps } from "types/domains";
+import { IPerformanceResultProps } from "types/domains";
 
 export interface ICategoryProps {
-  category: IPrimaryCategoryProps;
+  category: IPerformanceResultProps;
 }

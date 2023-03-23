@@ -2,7 +2,7 @@ import { Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
-import { IDomainProps, IPrimaryCategoryProps } from "types/domains";
+import { IDomainProps, IPerformanceResultProps, IPrimaryCategoryProps } from "types/domains";
 
 import { Category, MainSection } from "./components";
 
@@ -51,7 +51,10 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
           <MainSection site={activeSite} />
           <Stack alignItems="center">
             <Divider />
-            {activeSite.results?.primaryCategories?.map((el: IPrimaryCategoryProps) => (
+            <Typography variant="h5" sx={{ margin: "20px 0px" }}>
+              Alcuni report
+            </Typography>
+            {activeSite.results?.performance?.map((el: IPerformanceResultProps) => (
               <Category category={el} />
             ))}
           </Stack>
