@@ -1,13 +1,39 @@
-import { Divider, Typography } from "@mui/material";
+import { Button, Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
+import { useGeneralLoading } from "hooks";
+import useSessions from "hooks/api/useSessions";
 import { IDomainProps, IPerformanceResultProps } from "types/domains";
-
+import { useContext } from "react";
+import { DomainsContext } from "contexts/DomainsContext";
 import { Category, MainSection } from "./components";
 
 const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomainProps }) => {
-  console.log(activeSite);
+  const { startLoading: startGLoading, stopLoading: stopGLoading } = useGeneralLoading();
+  const { saveSession, deleteSession } = useSessions({ startGLoading, stopGLoading });
+  const { domains, setDomains, statistics, setStatistics } = useContext(DomainsContext);
+
+  const onSaveSession = async () => {
+    const response = await saveSession({ session: activeSite });
+    console.log(response);
+  };
+
+  const onDeleteSession = async () => {
+    const id = domains.indexOf(activeSite?.domain) + 1;
+
+    const otherDomains: string[] = domains.filter((el: string) => el !== activeSite?.domain);
+    setDomains(otherDomains);
+
+    const otherStatistics: IDomainProps[] = statistics.filter(
+      (el: IDomainProps) => el.domain !== activeSite?.domain
+    );
+    setStatistics(otherStatistics);
+
+    const response = await deleteSession({ id: id });
+    console.log(response);
+  };
+
   return (
     <>
       {loading ? (
@@ -57,6 +83,26 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
             {activeSite.results?.performance?.map((el: IPerformanceResultProps) => (
               <Category category={el} />
             ))}
+            <Stack flexDirection="row" sx={{ width: "100%", marginTop: "30px" }} gap="10px">
+              <Button
+                variant="contained"
+                size="large"
+                fullWidth
+                color="success"
+                onClick={onSaveSession}
+              >
+                SALVA COME NUOVA SESSIONE
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                fullWidth
+                color="error"
+                onClick={() => onDeleteSession()}
+              >
+                ELIMINA SESSIONE
+              </Button>
+            </Stack>
           </Stack>
         </>
       ) : (

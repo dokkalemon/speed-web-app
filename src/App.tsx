@@ -1,4 +1,4 @@
-import { Header, Modal, Wrapper } from "components";
+import { GeneralLoading, Header, Modal, Wrapper } from "components";
 import { FormEvent, useEffect, useState } from "react";
 import { Results, TypingSite } from "sections";
 import { addHttps } from "utils/controller";
@@ -8,6 +8,8 @@ import { DomainsContext } from "contexts/DomainsContext";
 import { IDomainProps, IResultsProps } from "types/domains";
 import { getPrimaryCategories, getPerformance, getWarningsAndSettings } from "utils/domain";
 import "react-circular-progressbar/dist/styles.css";
+import { useGeneralLoading } from "hooks";
+import useSessions from "hooks/api/useSessions";
 interface IModelProps {
   site: string | null;
   index: number;
@@ -17,6 +19,9 @@ function App() {
   //hooks
   const { startLoading, stopLoading } = useLoading();
   const { getInsights } = useTest({ startLoading, stopLoading });
+  const { loading, startLoading: startGLoading, stopLoading: stopGLoading } = useGeneralLoading();
+  const { getSessions, saveSession } = useSessions({ startGLoading, stopGLoading });
+
   //context
   const { domains, setDomains, statistics, setStatistics } = useContext(DomainsContext);
 
@@ -31,6 +36,17 @@ function App() {
     if (testedUrl) return setModal({ site: validUrl, index: testedUrl });
     setDomains([...domains, validUrl]);
   };
+
+  useEffect(() => {
+    const fetchSessions = async () => {
+      const response = await getSessions();
+      setStatistics([...response]);
+      const domains = response.map((el: IDomainProps) => el.domain);
+      setDomains(domains);
+    };
+    fetchSessions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (domains.length === 0) return;
@@ -61,7 +77,6 @@ function App() {
       setStatistics([...statistics, newDomain]);
     }
     if (!response || !response.status || response.status !== 200) {
-      console.log(response);
       const newDomain: IDomainProps = {
         domain,
         results: null,
@@ -74,6 +89,7 @@ function App() {
 
   return (
     <div className="App">
+      {loading && <GeneralLoading />}
       <Header />
       <Wrapper>
         <TypingSite handleSubmit={handleSubmit} />
