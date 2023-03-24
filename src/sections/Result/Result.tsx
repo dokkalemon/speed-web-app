@@ -20,8 +20,6 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
   };
 
   const onDeleteSession = async () => {
-    const id = domains.indexOf(activeSite?.domain) + 1;
-
     const otherDomains: string[] = domains.filter((el: string) => el !== activeSite?.domain);
     setDomains(otherDomains);
 
@@ -30,7 +28,7 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
     );
     setStatistics(otherStatistics);
 
-    const response = await deleteSession({ id: id });
+    const response = await deleteSession({ id: activeSite?.id });
     console.log(response);
   };
 

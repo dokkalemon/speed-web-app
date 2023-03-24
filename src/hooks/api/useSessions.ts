@@ -48,7 +48,7 @@ const useSessions = ({
     }
   };
 
-  const deleteSession = async ({ id }: { id: number }) => {
+  const deleteSession = async ({ id }: { id: string }) => {
     try {
       startGLoading();
       const response = await fetch(`${handpoint}/${id}`, { method: "DELETE" });

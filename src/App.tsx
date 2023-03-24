@@ -20,7 +20,7 @@ function App() {
   const { startLoading, stopLoading } = useLoading();
   const { getInsights } = useTest({ startLoading, stopLoading });
   const { loading, startLoading: startGLoading, stopLoading: stopGLoading } = useGeneralLoading();
-  const { getSessions, saveSession } = useSessions({ startGLoading, stopGLoading });
+  const { getSessions } = useSessions({ startGLoading, stopGLoading });
 
   //context
   const { domains, setDomains, statistics, setStatistics } = useContext(DomainsContext);
@@ -73,6 +73,7 @@ function App() {
         domain,
         results: results,
         status: 200,
+        id: domain.replace(/[//:.]/g, ""),
       };
       setStatistics([...statistics, newDomain]);
     }
@@ -81,12 +82,13 @@ function App() {
         domain,
         results: null,
         status: 500,
+        id: "",
         errorMessage: response.data.error.message,
       };
       setStatistics([...statistics, newDomain]);
     }
   };
-
+  console.log(statistics);
   return (
     <div className="App">
       {loading && <GeneralLoading />}

@@ -3,6 +3,7 @@ export interface IDomainProps {
   results: IResultsProps | null;
   status: 200 | 500 | null;
   errorMessage?: string;
+  id: string;
 }
 
 export interface IResultsProps {
