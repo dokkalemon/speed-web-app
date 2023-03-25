@@ -1,13 +1,11 @@
-const useTest = ({
-  stopLoading,
-  startLoading,
-}: {
-  stopLoading: VoidFunction;
-  startLoading: VoidFunction;
-}) => {
+import { useState } from "react";
+
+const useTest = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+
   const getInsights = async (url: string) => {
     try {
-      startLoading();
+      setLoading(true);
       const response = await fetch(
         `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${url}&locale=it&category=performance&category=accessibility&category=best-practices&category=pwa&category=seo`
       );
@@ -18,11 +16,12 @@ const useTest = ({
       console.error(errors);
       return errors;
     } finally {
-      stopLoading();
+      setLoading(false);
     }
   };
 
   return {
+    loading,
     getInsights,
   };
 };

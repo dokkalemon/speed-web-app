@@ -1,5 +1,5 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
-import { useLoading } from "hooks";
+import { useTest } from "hooks";
 import { KeyboardEvent, useState } from "react";
 import { urlRegex } from "utils/controller";
 
@@ -7,7 +7,7 @@ import { TypingSiteContainer } from "./TypingSite.style";
 import { ITypingSiteProps } from "./TypingSite.types";
 
 const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
-  const { loading } = useLoading();
+  const { loading } = useTest();
 
   //state
   const [isValidSite, setIsValidSite] = useState<boolean>(false);

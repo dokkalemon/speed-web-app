@@ -3,13 +3,12 @@ import { FormEvent, useEffect, useState } from "react";
 import { Results, TypingSite } from "sections";
 import { addHttps } from "utils/controller";
 import { useContext } from "react";
-import { useLoading, useTest } from "hooks";
+import { useTest } from "hooks";
 import { DomainsContext } from "contexts/DomainsContext";
 import { IDomainProps, IResultsProps } from "types/domains";
 import { getPrimaryCategories, getPerformance, getWarningsAndSettings } from "utils/domain";
-import "react-circular-progressbar/dist/styles.css";
-import { useGeneralLoading } from "hooks";
 import useSessions from "hooks/api/useSessions";
+import { Alert, Snackbar } from "@mui/material";
 interface IModelProps {
   site: string | null;
   index: number;
@@ -17,13 +16,12 @@ interface IModelProps {
 
 function App() {
   //hooks
-  const { startLoading, stopLoading } = useLoading();
-  const { getInsights } = useTest({ startLoading, stopLoading });
-  const { loading, startLoading: startGLoading, stopLoading: stopGLoading } = useGeneralLoading();
-  const { getSessions } = useSessions({ startGLoading, stopGLoading });
+  const { getInsights } = useTest();
+  const { getSessions, loading } = useSessions();
 
   //context
-  const { domains, setDomains, statistics, setStatistics } = useContext(DomainsContext);
+  const { domains, setDomains, statistics, setStatistics, setSnackbar, snackbar } =
+    useContext(DomainsContext);
 
   //state
   const [modal, setModal] = useState<IModelProps>({ site: null, index: 0 });
@@ -74,6 +72,7 @@ function App() {
         results: results,
         status: 200,
         id: domain.replace(/[//:.]/g, ""),
+        saved: false,
       };
       setStatistics([...statistics, newDomain]);
     }
@@ -84,14 +83,23 @@ function App() {
         status: 500,
         id: "",
         errorMessage: response.data.error.message,
+        saved: false,
       };
       setStatistics([...statistics, newDomain]);
     }
   };
-  console.log(statistics);
+
   return (
     <div className="App">
       {loading && <GeneralLoading />}
+      <Snackbar
+        open={snackbar.visible}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar({ message: "", variant: "info", visible: false })}
+        message={snackbar.message}
+      >
+        <Alert severity={snackbar.variant}>{snackbar.message}</Alert>
+      </Snackbar>
       <Header />
       <Wrapper>
         <TypingSite handleSubmit={handleSubmit} />

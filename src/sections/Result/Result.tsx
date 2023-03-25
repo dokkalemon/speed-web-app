@@ -2,21 +2,46 @@ import { Button, Divider, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { Loading } from "components/Loading/Loading";
 import { colorResponse, responseMessage } from "constants/references";
-import { useGeneralLoading } from "hooks";
 import useSessions from "hooks/api/useSessions";
 import { IDomainProps, IPerformanceResultProps } from "types/domains";
 import { useContext } from "react";
 import { DomainsContext } from "contexts/DomainsContext";
 import { Category, MainSection } from "./components";
+import { IResultProps } from "./Result.types";
 
-const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomainProps }) => {
-  const { startLoading: startGLoading, stopLoading: stopGLoading } = useGeneralLoading();
-  const { saveSession, deleteSession } = useSessions({ startGLoading, stopGLoading });
-  const { domains, setDomains, statistics, setStatistics } = useContext(DomainsContext);
+const Result = ({ loading, activeSite }: IResultProps) => {
+  const { saveSession, deleteSession } = useSessions();
+  const { domains, setDomains, statistics, setStatistics, setSnackbar } =
+    useContext(DomainsContext);
 
   const onSaveSession = async () => {
+    activeSite.saved = true;
     const response = await saveSession({ session: activeSite });
-    console.log(response);
+
+    if (!response || response.status !== 201) {
+      const filterStatistics = statistics.filter(
+        (el: IDomainProps) => el.domain !== activeSite.domain
+      );
+      const newActiveSite = { ...activeSite, saved: true };
+      setStatistics([...filterStatistics, newActiveSite]);
+
+      setSnackbar({ variant: "error", message: "Internal Server Error", visible: true });
+      return;
+    }
+    if (response && response.status === 201) {
+      const filterStatistics = statistics.filter(
+        (el: IDomainProps) => el.domain !== activeSite.domain
+      );
+      const newActiveSite = { ...activeSite, saved: false };
+      setStatistics([...filterStatistics, newActiveSite]);
+
+      setSnackbar({
+        variant: "success",
+        message: "Salvataggio eseguito con successo",
+        visible: true,
+      });
+      return;
+    }
   };
 
   const onDeleteSession = async () => {
@@ -27,9 +52,9 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
       (el: IDomainProps) => el.domain !== activeSite?.domain
     );
     setStatistics(otherStatistics);
-
-    const response = await deleteSession({ id: activeSite?.id });
-    console.log(response);
+    if (activeSite.saved) {
+      await deleteSession({ id: activeSite?.id });
+    }
   };
 
   return (
@@ -87,6 +112,7 @@ const Result = ({ loading, activeSite }: { loading: boolean; activeSite: IDomain
                 size="large"
                 fullWidth
                 color="success"
+                disabled={activeSite.saved}
                 onClick={onSaveSession}
               >
                 SALVA COME NUOVA SESSIONE

@@ -1,36 +1,41 @@
+import { useState } from "react";
 import { IDomainProps } from "types/domains";
 
 interface IReqProps {
   session: IDomainProps;
 }
 
-const useSessions = ({
-  startGLoading,
-  stopGLoading,
-}: {
-  startGLoading: VoidFunction;
-  stopGLoading: VoidFunction;
-}) => {
-  const handpoint = "http://localhost:3001/sites";
+export interface IResponseProps {
+  type: string;
+  url: string;
+  redirected: boolean;
+  status: number;
+  ok: boolean;
+  statusText: string;
+  headers: any;
+  bodyUsed: boolean;
+}
 
+const useSessions = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const handpoint = "http://localhost:3001/sites";
   const getSessions = async () => {
     try {
-      startGLoading();
+      setLoading(true);
       const response = await fetch(handpoint);
-      console.log(response);
       const data = response.json();
       return data;
     } catch (err) {
       console.error(err);
       return err;
     } finally {
-      stopGLoading();
+      setLoading(false);
     }
   };
 
-  const saveSession = async ({ session }: IReqProps) => {
+  const saveSession = async ({ session }: IReqProps): Promise<IResponseProps | any> => {
     try {
-      startGLoading();
+      setLoading(true);
       const response = await fetch(handpoint, {
         method: "POST",
         headers: {
@@ -44,20 +49,22 @@ const useSessions = ({
       console.error(err);
       return err;
     } finally {
-      stopGLoading();
+      setLoading(false);
     }
   };
 
-  const deleteSession = async ({ id }: { id: string }) => {
+  const deleteSession = async ({ id }: { id: string }): Promise<IResponseProps | any> => {
     try {
-      startGLoading();
-      const response = await fetch(`${handpoint}/${id}`, { method: "DELETE" });
+      setLoading(true);
+      const response = await fetch(`${handpoint}/${id}`, {
+        method: "DELETE",
+      });
       return response;
     } catch (err) {
       console.error(err);
       return err;
     } finally {
-      stopGLoading();
+      setLoading(false);
     }
   };
 
@@ -65,6 +72,7 @@ const useSessions = ({
     getSessions,
     saveSession,
     deleteSession,
+    loading,
   };
 };
 

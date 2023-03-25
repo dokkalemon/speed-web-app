@@ -4,6 +4,7 @@ export interface IDomainProps {
   status: 200 | 500 | null;
   errorMessage?: string;
   id: string;
+  saved: boolean;
 }
 
 export interface IResultsProps {
