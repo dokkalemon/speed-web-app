@@ -27,9 +27,3 @@ To start the server, run in another terminal window:
 or 
 #### `yarn server`
 The server will be running at [http://localhost:3001](http://localhost:3001).
-
-
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
