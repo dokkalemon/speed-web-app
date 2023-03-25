@@ -11,12 +11,13 @@ const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
 
   //state
   const [isValidSite, setIsValidSite] = useState<boolean>(false);
-
+  const [error, setError] = useState<boolean>(false);
   //function
   const handleKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
     const inputValue = (e.target as HTMLInputElement).value;
-
     setIsValidSite(urlRegex.test(inputValue));
+
+    setError(inputValue.length > 8 ? !urlRegex.test(inputValue) : false);
   };
 
   return (
@@ -36,9 +37,19 @@ const TypingSite = ({ handleSubmit }: ITypingSiteProps) => {
           <Stack sx={{ width: "100%" }} gap="5px">
             <TextField
               fullWidth
+              error={error}
               disabled={loading}
               name="site"
               onKeyUp={handleKeyUp}
+              helperText={
+                error ? (
+                  <Typography variant="caption" color="error">
+                    Url non valido
+                  </Typography>
+                ) : (
+                  ""
+                )
+              }
               label="Inserisci l'url del sito che vuoi analizzare"
               placeholder="https://mysite.com o http://mysite.com"
             />

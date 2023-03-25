@@ -10,3 +10,9 @@ export const addHttps = (site: string) => {
   }
   return validSite;
 };
+
+export const errorMessageRegex = new RegExp(
+  new RegExp(
+    "^(https?:\\/\\/)?([a-zA-Z0-9\\-]{3,}\\.)+[a-zA-Z0-9]{2,999}(\\/[a-zA-Z0-9\\-._?,'+&%$#=~]+)*(\\.([a-zA-Z]{2,6})){1}$"
+  )
+);
